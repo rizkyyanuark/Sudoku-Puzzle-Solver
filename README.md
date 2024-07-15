@@ -3,7 +3,7 @@
   <blockquote>
     Proyek ini mengimplementasikan dua pendekatan Pemrosesan Citra Digital dan Jaringan Saraf Konvolusional (CNN). Pemrosesan Citra Digital digunakan untuk mengekstraksi gambar, sedangkan Jaringan Saraf Konvolusional (CNN) diterapkan untuk proses pembelajaran dan prediksi
     <br>
-    Tujuan utama project ini adalah untuk mmenghasilkan sebuah algoritma yang mampu menyelesaikan teka-teki Sudoku secara efisien dan akurat dari input berbasis citra.
+    Tujuan utama project ini adalah untuk menghasilkan sebuah algoritma yang mampu menyelesaikan teka-teki Sudoku secara efisien dan akurat dari input berbasis citra.
   </blockquote>
 </div>
 
