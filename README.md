@@ -1,9 +1,9 @@
 <div align="center">
   <h1>Sudoku Solver Dengan Digital Image Processing dan CNN</h1>
   <blockquote>
-    Project ini memanfaatkan metode Mel Frequency Cepstral Coefficients (MFCC) untuk mengekstrak fitur, dan menggunakan Convolutional Neural Networks (CNN) untuk proses pembelajaran dan prediksi.
+    Proyek ini mengimplementasikan dua pendekatan Pemrosesan Citra Digital dan Jaringan Saraf Konvolusional (CNN). Pemrosesan Citra Digital digunakan untuk mengekstraksi gambar, sedangkan Jaringan Saraf Konvolusional (CNN) diterapkan untuk proses pembelajaran dan prediksi
     <br>
-    Tujuan utama project ini adalah untuk mengembangkan model yang akurat dan efisien yang dapat digunakan dalam aplikasi kesehatan mental untuk mendeteksi dan mencegah depresi pada tahap awal.
+    Tujuan utama project ini adalah untuk mmenghasilkan sebuah algoritma yang mampu menyelesaikan teka-teki Sudoku secara efisien dan akurat dari input berbasis citra.
   </blockquote>
 </div>
 
