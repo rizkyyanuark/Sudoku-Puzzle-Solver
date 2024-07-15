@@ -1,5 +1,6 @@
 <div align="center">
   <h1>Sudoku Solver Dengan Digital Image Processing dan CNN</h1>
+  <img src="https://github.com/rizkyyanuark/SudokuSolver-DataCitra/blob/main/util/sudoku.png" align="center" alt="Logo" width="275" height="275">
   <blockquote>
     Proyek ini mengimplementasikan dua pendekatan Pemrosesan Citra Digital dan Jaringan Saraf Konvolusional (CNN). Pemrosesan Citra Digital digunakan untuk mengekstraksi gambar, sedangkan Jaringan Saraf Konvolusional (CNN) diterapkan untuk proses pembelajaran dan prediksi
     <br>
@@ -9,6 +10,7 @@
 
 <details>
   <summary>🏁 Table of Contents</summary>
+  <img src="https://github.com/rizkyyanuark/SudokuSolver-DataCitra/blob/main/util/sudoku.png" align="right" alt="Logo" width="275" height="275">
   <ul>
     <li><a href="#Dataset">Dataset</a></li>
     <li><a href="#Teknologi-yang-Digunakan">Teknologi yang Digunakan</a>
