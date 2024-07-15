@@ -1,5 +1,5 @@
 <div align="center">
-  <h1> mengintegraikan image prossecing dan deep learning</h1>
+  <h1>Sudoku Solver Dengan Digital Image Processing dan CNN</h1>
   <blockquote>
     Project ini memanfaatkan metode Mel Frequency Cepstral Coefficients (MFCC) untuk mengekstrak fitur, dan menggunakan Convolutional Neural Networks (CNN) untuk proses pembelajaran dan prediksi.
     <br>
