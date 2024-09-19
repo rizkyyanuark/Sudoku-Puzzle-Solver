@@ -1,0 +1,113 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+.container {
+  display: flex;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.left,
+.right {
+  margin: 10px;
+}
+.left {
+  text-align: center;
+}
+.right {
+  text-align: left;
+}
+input[type="file"] {
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #0056b3;
+}
+button.loading {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+button.loading::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  margin-left: 10px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+video {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+.result {
+  margin-top: 20px;
+  text-align: left;
+}
+.result table {
+  border-collapse: collapse;
+  margin: 20px auto;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.result td {
+  border: 1px solid #000;
+  width: 20px; /* Ukuran lebih kecil */
+  height: 20px; /* Ukuran lebih kecil */
+  text-align: center;
+  font-size: 12px; /* Ukuran font lebih kecil */
+  padding: 3px;
+}
+.result td:nth-child(3n) {
+  border-right: 2px solid #000;
+}
+.result tr:nth-child(3n) td {
+  border-bottom: 2px solid #000;
+}
+.result .solved {
+  color: green;
+}
+.captured {
+  margin-top: 20px;
+}
+.captured img {
+  max-width: 100px; /* Ukuran lebih kecil */
+  height: auto;
+}
+.recognized {
+  margin-top: 20px;
+}
+.recognized img {
+  max-width: 150px; /* Ukuran lebih kecil */
+  height: auto;
+}
