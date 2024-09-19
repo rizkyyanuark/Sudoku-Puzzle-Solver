@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, jsonify
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
 from flask_wtf.file import FileRequired, FileAllowed
@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 import os
 import logging
 import main  # Ensure main.py contains the process_image function
+import base64
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -56,6 +57,27 @@ def index():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+
+@app.route('/capture', methods=['POST'])
+def capture():
+    data = request.get_json()
+    image_data = data['image'].split(',')[1]
+    image_data = base64.b64decode(image_data)
+
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'captured_image.jpg')
+    with open(filepath, 'wb') as f:
+        f.write(image_data)
+
+    app.logger.debug(f'Captured image saved to {filepath}')
+
+    # Process the image and solve the Sudoku
+    try:
+        result = main.process_image(filepath)
+        return jsonify(result)
+    except Exception as e:
+        app.logger.error(f'Error processing captured image: {str(e)}')
+        return jsonify({'error': str(e)}), 500
 
 
 if __name__ == '__main__':

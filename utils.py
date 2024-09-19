@@ -154,3 +154,44 @@ def centerPoints(boxes):
         h, w = box.shape[:2]
         center_points.append((w // 2, h // 2))
     return center_points
+
+
+def preprocess_box(image):
+    '''Preprocess the image to highlight the grid lines'''
+    sudoku_a = cv2.resize(image, (450, 450))
+    gray = cv2.cvtColor(sudoku_a, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray, (3, 3), 6)
+    blur = cv2.bilateralFilter(blur, 9, 75, 75)
+    threshold_img = cv2.adaptiveThreshold(
+        blur,
+        255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+    return threshold_img
+
+
+def getBoxes(img, save_path):
+    '''Detect the grid and return the coordinates of each box'''
+    processed_img = preprocess_box(img)
+
+    # Finding the outline of the sudoku puzzle in the image
+    contour_1 = img.copy()
+    contours, hierarchy = cv2.findContours(
+        processed_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cv2.drawContours(contour_1, contours, -1, (0, 255, 0), 3)
+
+    # Save the contour detection result
+    cv2.imwrite(save_path, contour_1)
+
+    boxes = []
+    for contour in contours:
+        area = cv2.contourArea(contour)
+        if area > 100:  # Adjust the area threshold as needed
+            peri = cv2.arcLength(contour, True)
+            approx = cv2.approxPolyDP(contour, 0.02 * peri, True)
+            if len(approx) == 4:
+                # Extract the bounding box coordinates
+                x, y, w, h = cv2.boundingRect(approx)
+                aspect_ratio = w / float(h)
+                if 0.8 < aspect_ratio < 1.2:  # Ensure the box is roughly square
+                    boxes.append(((x, y), (x + w, y + h)))
+
+    return boxes

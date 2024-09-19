@@ -1,10 +1,9 @@
-import cv2
-import numpy as np
-import os
 from flask import url_for
-from utils import extract_sudoku_grid, split_cells, crop_cells, read_cells, getOriginalNumbers, sudokuGrid
+from utils import extract_sudoku_grid, split_cells, crop_cells, read_cells, getOriginalNumbers, sudokuGrid, getBoxes
 from tensorflow.keras.models import load_model
 from sudoku_solver import solve_sudoku
+import os
+import cv2
 
 # Path to the model
 MODEL_PATH = 'models/my_model.h5'
@@ -16,14 +15,12 @@ model = load_model(MODEL_PATH)
 
 
 def displaySudoku(image, solved_grid, original_numbers):
-    img_copy = image.copy()  # Copy image to avoid modifying the original
-
-    # Define grid parameters
+    img_copy = image.copy()
     grid_size = image.shape[0] // 9
     font = cv2.FONT_HERSHEY_SIMPLEX
-    font_scale = 1  # Font size for digits
-    font_thickness = 2  # Font thickness for better visibility
-    color = (45, 113, 0)  # Green color for the newly filled numbers
+    font_scale = 1
+    font_thickness = 2
+    color = (45, 113, 0)
 
     for i in range(9):
         for j in range(9):
@@ -123,15 +120,17 @@ def process_image(filepath):
 
             text = str(number)
             font = cv2.FONT_HERSHEY_COMPLEX
-            text_size = cv2.getTextSize(text, font, 0.5, 2)[0]
-            # Menggeser teks agar tepat di tengah secara horizontal
+            text_size = cv2.getTextSize(text, font, 1, 1)[0]
             text_x = center_x - text_size[0] // 2
-            # Menggeser teks agar tepat di tengah secara vertikal
             text_y = center_y + text_size[1] // 2
-
-            # Gambar angka di tengah kotak
             cv2.putText(predicted_numbers_img, text,
-                        (text_x, text_y), font, 1, (0, 255, 0), 2)
+                        (text_x, text_y), font, 1, (0, 255, 0), 1)
+
+    # Detect grid and draw rectangles
+    img_boxes = img.copy()
+    contour_image_path = os.path.join(uploads_dir, 'contour_detected.jpg')
+    for box in getBoxes(img_boxes, contour_image_path):
+        cv2.rectangle(img_boxes, box[0], box[1], (0, 255, 0), 2)
 
     # Simpan gambar yang telah diberi prediksi angka
     predicted_numbers_image_path = os.path.join(
@@ -139,27 +138,30 @@ def process_image(filepath):
     cv2.imwrite(predicted_numbers_image_path, predicted_numbers_img)
 
     # Save the processed image (solved Sudoku)
-    processed_image_path = os.path.join(uploads_dir, 'solved_sudoku.jpg')
-    cv2.imwrite(processed_image_path, solved_image)
+    solved_sudoku_path = os.path.join(uploads_dir, 'solved_sudoku.jpg')
+    cv2.imwrite(solved_sudoku_path, solved_image)
 
     # Normalize paths for compatibility
     original_filename = os.path.basename(filepath).replace('\\', '/')
     sudoku_grid_filename = os.path.basename(
         sudoku_grid_image_path).replace('\\', '/')
-    processed_filename = os.path.basename(
-        processed_image_path).replace('\\', '/')
+    solved_sudoku_filename = os.path.basename(
+        solved_sudoku_path).replace('\\', '/')
     predicted_numbers_filename = os.path.basename(
         predicted_numbers_image_path).replace('\\', '/')
+    contour_detected_filename = os.path.basename(
+        contour_image_path).replace('\\', '/')
 
     result = {
         'original': filepath,
-        'processed': processed_image_path,
+        'processed': solved_sudoku_filename,
         'solution': solved_grid.tolist() if solved_grid is not None else [],
         'images': [
             url_for('uploaded_file', filename=original_filename),
+            url_for('uploaded_file', filename=contour_detected_filename),
             url_for('uploaded_file', filename=sudoku_grid_filename),
-            url_for('uploaded_file', filename=processed_filename),
-            url_for('uploaded_file', filename=predicted_numbers_filename)
+            url_for('uploaded_file', filename=predicted_numbers_filename),
+            url_for('uploaded_file', filename=solved_sudoku_filename)
         ]
     }
 

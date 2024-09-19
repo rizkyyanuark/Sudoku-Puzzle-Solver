@@ -1,113 +1,158 @@
-body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f0f0f0;
+/* Style the solution grid for a compact display */
+.sudoku-table td {
+  width: 5px; /* Decrease cell width */
+  height: 4px; /* Further decrease cell height */
+  text-align: center;
+  font-size: 12px; /* Decrease font size */
+  border: 2px solid black; /* Add border around each cell */
+  vertical-align: middle; /* Centers the text vertically */
+  padding: 0px; /* Reduces padding inside the cells */
 }
-.container {
-  display: flex;
-  background-color: #fff;
+
+/* Thicker borders for 3x3 subgrids */
+.sudoku-table td:nth-child(3n) {
+  border-right: 4px solid black;
+}
+
+.sudoku-table tr:nth-child(3n) td {
+  border-bottom: 4px solid black;
+}
+
+/* Center the table */
+.sudoku-table {
+  width: 100%; /* Set the table to take up 100% of the card's width */
+  margin-top: -3px; /* Remove any margin above the table */
+  margin-bottom: 2; /* Remove any margin below the table */
+  margin-left: -1px;
+  margin-right: -1px;
+}
+
+/* Hide the spinner by default */
+.loading-spinner {
+  display: none;
+}
+
+/* Add shadow to the table container */
+.sudoku-container {
   padding: 20px;
+  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.left,
-.right {
-  margin: 10px;
+
+/* Animation for cards */
+.card {
+  transition: transform 0.3s, box-shadow 0.3s;
 }
-.left {
-  text-align: center;
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
-.right {
-  text-align: left;
+
+/* Custom styles for the page */
+body {
+  background-color: #f8f9fa;
 }
-input[type="file"] {
-  width: 100%;
-  margin-bottom: 20px;
-  font-size: 16px;
+
+.header {
+  background-color: #343a40;
+  color: white;
+  padding: 20px 0;
 }
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+
+.header h1 {
+  margin: 0;
 }
-button:hover {
-  background-color: #0056b3;
+
+.main-content {
+  padding: 40px 0;
 }
-button.loading {
-  background-color: #6c757d;
-  cursor: not-allowed;
+
+.card img {
+  height: 200px;
+  object-fit: cover;
 }
-button.loading::after {
-  content: "";
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #fff;
-  border-top-color: transparent;
-  border-radius: 50%;
-  margin-left: 10px;
-  animation: spin 1s linear infinite;
+
+/* Modal image spin animation */
+.modal-content {
+  animation: spinIn 0.5s ease-in-out;
 }
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
+
+@keyframes spinIn {
+  from {
+    transform: rotateY(90deg);
+    opacity: 0;
   }
-  100% {
-    transform: rotate(360deg);
+  to {
+    transform: rotateY(0deg);
+    opacity: 1;
   }
 }
-video {
-  max-width: 100%;
-  height: auto;
-  margin-top: 20px;
+
+@keyframes spinOut {
+  from {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: rotateY(90deg);
+    opacity: 0;
+  }
 }
-.result {
-  margin-top: 20px;
-  text-align: left;
+
+.modal.fade .modal-dialog {
+  transition: transform 0.5s ease-in-out;
 }
-.result table {
-  border-collapse: collapse;
-  margin: 20px auto;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+.modal.fade.show .modal-dialog {
+  transform: rotateY(0deg);
 }
-.result td {
-  border: 1px solid #000;
-  width: 20px; /* Ukuran lebih kecil */
-  height: 20px; /* Ukuran lebih kecil */
-  text-align: center;
-  font-size: 12px; /* Ukuran font lebih kecil */
-  padding: 3px;
+
+.modal.fade .modal-dialog {
+  transform: rotateY(90deg);
 }
-.result td:nth-child(3n) {
-  border-right: 2px solid #000;
+
+.modal.fade .modal-dialog {
+  transition: transform 0.5s ease-in-out;
 }
-.result tr:nth-child(3n) td {
-  border-bottom: 2px solid #000;
+
+.modal.fade.show .modal-dialog {
+  transform: rotateY(0deg);
 }
-.result .solved {
-  color: green;
+
+.modal.fade .modal-dialog {
+  transform: rotateY(90deg);
 }
-.captured {
-  margin-top: 20px;
+
+/* styles.css */
+
+/* Style for the camera preview video */
+.camera-preview {
+  border: 2px solid #007bff; /* Blue border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-bottom: 20px; /* Space below the video */
 }
-.captured img {
-  max-width: 100px; /* Ukuran lebih kecil */
-  height: auto;
+
+/* Small preview size */
+.small-preview {
+  width: 320px; /* Set a fixed width */
+  height: auto; /* Maintain aspect ratio */
 }
-.recognized {
-  margin-top: 20px;
+
+/* Style for the canvas used to capture the image */
+.camera-canvas {
+  border: 2px solid #28a745; /* Green border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: block; /* Ensure the canvas is displayed as a block element */
+  margin: 0 auto; /* Center the canvas */
+  max-width: 100%; /* Ensure the canvas does not exceed the container width */
 }
-.recognized img {
-  max-width: 150px; /* Ukuran lebih kecil */
-  height: auto;
+
+/* Style for the capture and solve buttons */
+#capture-button,
+#solve-button {
+  margin-top: 10px; /* Space above the buttons */
 }
