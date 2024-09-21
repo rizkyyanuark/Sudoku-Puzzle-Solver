@@ -1,35 +1,34 @@
-/* Style the solution grid for a compact display */
+/* Style the solution grid for a compact and square display */
 .sudoku-table td {
-  width: 5px; /* Decrease cell width */
-  height: 4px; /* Further decrease cell height */
+  width: 40px; /* Fixed width for each cell */
+  height: 40px; /* Fixed height to ensure it's square */
   text-align: center;
-  font-size: 12px; /* Decrease font size */
-  border: 2px solid black; /* Add border around each cell */
-  vertical-align: middle; /* Centers the text vertically */
-  padding: 0px; /* Reduces padding inside the cells */
+  font-size: 18px; /* Set font size */
+  border: 2px solid #343a40; /* Dark border for each cell */
+  background-color: #f8f9fa; /* Light background */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effect */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
 }
 
 /* Thicker borders for 3x3 subgrids */
 .sudoku-table td:nth-child(3n) {
-  border-right: 4px solid black;
+  border-right: 4px solid #343a40; /* Thicker border on right of every 3rd cell */
 }
 
 .sudoku-table tr:nth-child(3n) td {
-  border-bottom: 4px solid black;
+  border-bottom: 4px solid #343a40; /* Thicker border on bottom of every 3rd row */
 }
 
 /* Center the table */
 .sudoku-table {
-  width: 100%; /* Set the table to take up 100% of the card's width */
-  margin-top: -3px; /* Remove any margin above the table */
-  margin-bottom: 2; /* Remove any margin below the table */
-  margin-left: -1px;
-  margin-right: -1px;
+  margin: 10px 0; /* Add some margin above and below the table */
+  border-collapse: collapse; /* Ensure borders are collapsed */
+  width: auto; /* Prevent table from stretching */
 }
 
-/* Hide the spinner by default */
-.loading-spinner {
-  display: none;
+/* Hover effect for table cells */
+.sudoku-table td:hover {
+  background-color: #e9ecef; /* Light grey background on hover */
 }
 
 /* Add shadow to the table container */
@@ -38,6 +37,28 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px; /* Add some margin above the container */
+  display: inline-block; /* Ensure the container only takes necessary space */
+}
+/* Hover effect for table cells */
+.sudoku-table td:hover {
+  background-color: #e9ecef; /* Light grey background on hover */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Stronger inner shadow on hover */
+}
+
+/* Add shadow to the table container */
+.sudoku-container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Larger shadow for a more elegant look */
+  margin-top: 20px; /* Add some margin above the container */
+  display: inline-block; /* Ensure the container only takes necessary space */
+  transition: box-shadow 0.3s; /* Smooth transition for shadow */
+}
+
+.sudoku-container:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
 
 /* Animation for cards */
@@ -113,46 +134,71 @@ body {
   transform: rotateY(90deg);
 }
 
-.modal.fade .modal-dialog {
-  transition: transform 0.5s ease-in-out;
+/* Custom style untuk tombol Solve */
+.solve-button,
+.camera-button {
+  color: white; /* Warna teks putih */
+  border: none; /* Hapus border default */
+  height: 30px; /* Tinggi tombol */
+  padding: 1px 1px; /* Atur padding */
+  font-size: 14px; /* Ukuran font yang lebih besar */
+  border-radius: 5px; /* Sudut tombol sedikit melengkung */
+  font-weight: bold; /* Teks bold */
+  transition: background-color 0.3s ease; /* Animasi transisi saat hover */
 }
 
-.modal.fade.show .modal-dialog {
-  transform: rotateY(0deg);
+.solve-button {
+  background-color: #28a745; /* Warna latar belakang hijau */
+  width: 125px; /* Lebar tombol */
 }
 
-.modal.fade .modal-dialog {
-  transform: rotateY(90deg);
+.solve-button:hover {
+  background-color: #218838; /* Warna saat hover menjadi lebih gelap */
 }
 
-/* styles.css */
+.solve-button:active {
+  background-color: #1e7e34; /* Warna lebih gelap saat tombol ditekan */
+}
 
-/* Style for the camera preview video */
+.solve-button:disabled {
+  background-color: #6c757d; /* Warna untuk tombol yang disabled */
+  cursor: not-allowed; /* Ganti kursor untuk menunjukkan tombol tidak bisa diklik */
+}
+
+.camera-button {
+  background-color: #7e807f; /* Warna latar belakang hijau */
+  width: 100px; /* Lebar tombol */
+}
+
+.camera-button:hover {
+  background-color: #4e5750; /* Warna saat hover menjadi lebih gelap */
+}
+
+.camera-button:active {
+  background-color: #444744; /* Warna lebih gelap saat tombol ditekan */
+}
+
+.camera-button:disabled {
+  background-color: #6c757d; /* Warna untuk tombol yang disabled */
+  cursor: not-allowed; /* Ganti kursor untuk menunjukkan tombol tidak bisa diklik */
+}
+
+/* Style for the camera preview video and canvas */
+.camera-preview,
+.camera-canvas {
+  width: 450px; /* Tentukan lebar yang sama untuk preview dan canvas */
+  height: auto; /* Jaga agar tinggi tetap mengikuti rasio */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin: 20px auto; /* Tambahkan margin atas/bawah dan buat auto untuk mengatur posisi center */
+  display: block; /* Pastikan elemen diperlakukan sebagai blok */
+}
+
+/* Border colors for distinction */
 .camera-preview {
   border: 2px solid #007bff; /* Blue border */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  margin-bottom: 20px; /* Space below the video */
 }
 
-/* Small preview size */
-.small-preview {
-  width: 320px; /* Set a fixed width */
-  height: auto; /* Maintain aspect ratio */
-}
-
-/* Style for the canvas used to capture the image */
 .camera-canvas {
   border: 2px solid #28a745; /* Green border */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  display: block; /* Ensure the canvas is displayed as a block element */
-  margin: 0 auto; /* Center the canvas */
-  max-width: 100%; /* Ensure the canvas does not exceed the container width */
-}
-
-/* Style for the capture and solve buttons */
-#capture-button,
-#solve-button {
-  margin-top: 10px; /* Space above the buttons */
 }
