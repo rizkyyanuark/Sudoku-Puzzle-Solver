@@ -2,94 +2,86 @@
   <h1>Sudoku Solver Dengan Digital Image Processing dan CNN</h1>
   <img src="https://github.com/rizkyyanuark/SudokuSolver-DataCitra/blob/main/util/sudoku.png" align="center" alt="Logo" width="275" height="275">
   <blockquote>
-    Proyek ini mengimplementasikan dua pendekatan Pemrosesan Citra Digital dan Jaringan Saraf Konvolusional (CNN). Pemrosesan Citra Digital digunakan untuk mengekstraksi gambar, sedangkan Jaringan Saraf Konvolusional (CNN) diterapkan untuk proses pembelajaran dan prediksi
+This project employs two approaches: digital image processing and convolutional neural networks (CNNs). Digital image processing is used for image extraction, while CNNs are used for learning and prediction.
     <br>
-    Tujuan utama project ini adalah untuk menghasilkan sebuah algoritma yang mampu menyelesaikan teka-teki Sudoku secara efisien dan akurat dari input berbasis citra.
+The main goal of this project is to come up with an algorithm that can solve Sudoku puzzles from image-based input in an efficient and accurate way.
   </blockquote>
 </div>
 
-<details>
-  <summary>🏁 Table of Contents</summary>
-  <img src="https://github.com/rizkyyanuark/SudokuSolver-DataCitra/blob/main/util/sudoku.png" align="right" alt="Logo" width="275" height="275">
-  <ul>
-    <li><a href="#Dataset">Dataset</a></li>
-    <li><a href="#Teknologi-yang-Digunakan">Teknologi yang Digunakan</a>
-    </li>
-    <li><a href="#Cara-Menggunakan">Cara Menggunakan</a></li>
-    <li><a href="#Referensi">referensi</a></li>
-    <li><a href="#Kontribusi">Kontribusi</a></li>
-    <li><a href="#License">Lisensi</a></li>
-    <li><a href="#File">File</a></li>
-    <li><a href="#Teams">Teams</a></li>
-  </ul>
-</details>
 
-## Dataset
-Proyek ini menggunakan dataset dari [RAVDESS](https://www.kaggle.com/datasets/uwrfkaggler/ravdess-emotional-speech-audio), yang merupakan sumber daya yang sangat berharga untuk penelitian dalam bidang pengenalan emosi melalui suara.
+## ✨ Features
 
-Berikut adalah penjelasan singkat tentang identifikasi nama file dalam dataset RAVDESS:
+- **📤 Upload Image** : Users can upload an image of the Sudoku board from their device, which will be processed and solved by the application.
+- **📸 Use Camera** : Users can utilize their device's camera to capture an image of the Sudoku board in real-time, offering a convenient way to scan the board instantly.
+- **🤖 Automatic Detection & Solving** : The app automatically detects the Sudoku grid, recognizes the numbers using a machine learning model, and solves the puzzle for you.
+- **📊 Result Display** : After solving, the original image, the processed image, and the solved Sudoku puzzle are presented in an easy-to-read table format.
 
-* Modality (01 = full-AV, 02 = video-only, 03 = audio-only).
-* Vocal channel (01 = speech, 02 = song).
-* Emotion (01 = neutral, 02 = calm, 03 = happy, 04 = sad, 05 = angry, 06 = fearful, 07 = disgust, 08 = surprised).
-* Emotional intensity (01 = normal, 02 = strong). NOTE: There is no strong intensity for the 'neutral' emotion.
-* Statement (01 = "Kids are talking by the door", 02 = "Dogs are sitting by the door").
-* Repetition (01 = 1st repetition, 02 = 2nd repetition).
-* Actor (01 to 24. Odd numbered actors are male, even numbered actors are female).
+## 🛠️ Technologies Used
+- **Frontend** : HTML, CSS, JavaScript, Bootstrap
+- **Backend** : Python, Flask
+- **Image Processing** : OpenCV
+- **Machine Learning** : TensorFlow, Keras
+- **OCR Model** : EasyOCR
 
-Sebagai contoh, nama file audio `02-01-06-01-02-01-12.mp4` memiliki meta data sebagai berikut:
+## 🚀 Installation
 
-* Video-only (02)
-* Speech (01)
-* Fearful (06)
-* Normal intensity (01)
-* Statement "dogs" (02)
-* 1st Repetition (01)
-* 12th Actor (12) - Female (as the actor ID number is even)
+1. **Clone this repository:**
 
-Dalam proyek ini, kami melakukan pengelompokan emosi menjadi dua kelas utama: `Depresi` dan `Non-Depresi`. Emosi seperti neutral, calm, surprised, dan happy akan dikategorikan ke dalam kelas `Non-Depresi`. Sementara itu, emosi seperti sad, angry, fearful, dan disgust akan dikategorikan ke dalam kelas `Depresi`.
+   ```bash
+   git clone https://github.com/your-username/sudoku-solver.git
+   cd sudoku-solver
+2. **Create and activate a virtual environment:**
+   - On Windows:
+     ```
+     python -m venv venv
+     venv\Scripts\activate
+     ```
+   - on Macos/Linux:
+     ```
+     python3 -m venv venv
+     source venv/bin/activate
+     ```
+3. **Install dependencies:**
+   ```
+   pip install -r requirements.txt
+   ```
+4. **Run the application:**
+   ```
+   python app.py
+   ```
+5. **Access the application in your browser:**
 
-Tujuan dari pengelompokan ini adalah untuk memudahkan analisis dan pemahaman tentang bagaimana emosi dapat dikelompokkan berdasarkan karakteristik mereka. Dengan demikian, ini akan membantu dalam penelitian lebih lanjut tentang pengenalan depresi berbasis dataset emosi
 
-## Teknologi yang Digunakan
+## Project Structure
 
-- Python
-- Scikit-learn
-- Pandas
-- Numpy
-- Matplotlib
-- Seaborn
-- Keras
+```
+sudoku-solver/
+├── app.py                     # Main Flask application to run the web server
+├── main.py                    # Entry point of the application, handling routing and logic
+├── sudoku_solver.py           # Core logic for solving the Sudoku puzzle using algorithms or ML model
+├── utils.py                   # Utility functions used throughout the project (image processing, etc.)
+├── templates/                 # HTML templates for rendering the web pages
+│   └── index.html             # Main page for the Sudoku solver web interface
+├── static/                    # Static files such as CSS, images, and other assets
+│   ├── styles.css             # CSS file for styling the web interface
+│   └── temp/                  # Temporary storage for uploaded images
+├── models/                    # Pre-trained models for digit recognition
+│   └── my_model.h5            # Machine learning model (in Keras format) for predicting Sudoku digits
+├── classification/            # Folder for system classification-related files
+│   └── System_Sudoku_Solver   # Classification model or system logic for solving Sudoku
+├── requirements.txt           # List of dependencies required to install and run the project
+└── README.md                  # Documentation for the project
+```
 
-## Cara Menggunakan
-
-1. Clone repositori ini.
-2. Install semua dependensi yang diperlukan.
-3. Jalankan notebook Jupyter atau script Python.
-
-## Referensi
-
-Jika Anda tertarik untuk mempelajari lebih lanjut tentang topik ini, berikut adalah beberapa referensi yang mungkin berguna:
-
-- Understanding Depression: Signs, Symptoms, Causes, and Help
-- Machine Learning for Mental Health Prediction
 
 ## Kontribusi
-
-Kontribusi, masalah, dan permintaan fitur baru selalu diterima. Untuk perubahan besar, harap buka issue terlebih dahulu untuk membahas apa yang ingin Anda ubah.
+We'd love for you to contribute! If you want to help out, just fork this repository and create a pull request with your changes.
 
 ## License
-
-MIT
-
-## File
-
-- Proposal : [pdf](https://github.com/rizkyyanuark/PrediksiDepression-DataSpeech/blob/main/Proposal%20Prediciton%20of%20Depression%20from%20Data%20Speech.pdf)
-- HKI : EC002023123353, 4 Desember 2023
+This project is licensed under the MIT license. See the LICENSE file for more information.
 
 
 ## Teams
-
 <div align="center">
   <table style="margin: auto;">
     <tr>
