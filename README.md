@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Sudoku Solver Dengan Digital Image Processing dan CNN</h1>
+  <h1> Sudoku Solver : Digital Image Processing and CNN</h1>
   <img src="https://github.com/rizkyyanuark/SudokuSolver-DataCitra/blob/main/util/sudoku.png" align="center" alt="Logo" width="275" height="275">
 </div>
 
