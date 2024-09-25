@@ -45,26 +45,6 @@
               </div>
             </div>
 
-            <!-- Loading spinner style -->
-            <style>
-              .loading-spinner .spinner-border {
-                display: inline-block;
-                margin-left: 8px;
-              }
-            </style>
-
-            <!-- Flash messages -->
-            {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
-            <div class="alert-container mt-3">
-              {% for category, message in messages %}
-              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-              </div>
-              {% endfor %}
-            </div>
-            {% endif %} {% endwith %}
-
             <!-- Results Section -->
             <div id="results-section" class="mt-4">
               {% if images %}
@@ -134,12 +114,6 @@
         button.disabled = true; // Disable the button
         button.innerHTML = 'Solving... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
       }
-      function showLoadingAndSolve() {
-        // Menampilkan loading pada tombol
-        showLoading("solve-button");
-        // Menjalankan fungsi solveSudoku untuk memulai proses pemecahan Sudoku
-        solveSudoku();
-      }
 
       // Function to open the camera
       function openCamera() {
@@ -176,7 +150,7 @@
         var solveButton = document.getElementById("solve-button");
         var recaptureButton = document.getElementById("recapture-button");
 
-        // Set canvas dimensions to match video dimensions
+        // Set c                  anvas dimensions to match video dimensions
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
 
@@ -223,7 +197,8 @@
         var canvas = document.getElementById("camera-canvas");
         var imageData = canvas.toDataURL("image/jpeg");
 
-        // Kirim gambar yang diambil ke server untuk diproses
+        showLoading("solve-button");
+
         fetch("/capture", {
           method: "POST",
           headers: {
@@ -231,84 +206,27 @@
           },
           body: JSON.stringify({ image: imageData }),
         })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.error) {
-              console.error("Error solving Sudoku: " + data.error);
-              alert("Terjadi kesalahan saat memproses gambar. Silakan coba lagi.");
-            } else {
-              updateResultsSection(data);
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok: " + response.statusText);
             }
+            return response.text(); // Expect HTML response
+          })
+          .then((html) => {
+            document.open();
+            document.write(html);
+            document.close();
           })
           .catch((error) => {
             console.error("Error:", error);
             alert("Terjadi kesalahan saat mengirim gambar ke server.");
           })
           .finally(() => {
-            // Sembunyikan tombol "Solve" setelah proses selesai
+            hideLoading("solve-button");
             document.getElementById("solve-button").style.display = "none";
-
-            // Tampilkan hanya tombol "Recapture"
-            document.getElementById("recapture-button").style.display = "inline-block";
+            document.getElementById("recapture-button").style.display = "none";
           });
       }
-
-      // Function to update the results section with data from server
-      function updateResultsSection(data) {
-        var resultsSection = document.getElementById("results-section");
-        var titles = ["Preprocess for better detection", "Result find contour", "Cut image to get grid", "Predict number", "Result Sudoku"];
-
-        var html = `
-          <h2 class="text-center mb-4">Solution</h2>
-          <div class="row">
-              <div class="col-md-4 mb-4">
-                  <div class="card">
-                      <img src="${data.file_url}" class="card-img-top" alt="Original Image" onclick="showModal(this)" />
-                      <div class="card-body">
-                          <h5 class="card-title">Original Image</h5>
-                      </div>
-                  </div>
-              </div>`;
-
-        data.images.forEach((image, index) => {
-          html += `
-              <div class="col-md-4 mb-4">
-                  <div class="card">
-                      <img src="${image}" class="card-img-top" alt="${titles[index]}" onclick="showModal(this)" />
-                      <div class="card-body">
-                          <h5 class="card-title">${titles[index]}</h5>
-                      </div>
-                  </div>
-              </div>`;
-        });
-
-        html += `</div>`;
-
-        if (data.solution) {
-          html += `
-              <div class="sudoku-container">
-                  <h3 class="display-6 text-body-emphasis text-center">Solved Sudoku</h3>
-                  <table class="table table-bordered mx-auto sudoku-table">
-                      <tbody>`;
-          data.solution.forEach((row) => {
-            html += `<tr>`;
-            row.forEach((cell) => {
-              html += `<td>${cell}</td>`;
-            });
-            html += `</tr>`;
-          });
-          html += `
-                      </tbody>
-                  </table>
-              </div>`;
-        }
-
-        resultsSection.innerHTML = html;
-
-        // Scroll to results section
-        resultsSection.scrollIntoView({ behavior: "smooth" });
-      }
-
       // Function to show modal with full-size image
       function showModal(image) {
         var modalImage = document.getElementById("modalImage");

@@ -24,8 +24,9 @@ def process_image(img_name):
     img2 = cv2.imread(f'{img_path}{img_name}')
 
     img_preprocess = preprocess(img)
+    img_preprocess2 = preprocess(img2)
     image_name_preprocess = changeName(img_name, "preprocess")
-    cv2.imwrite(f"{img_path}{image_name_preprocess}", img_preprocess)
+    cv2.imwrite(f"{img_path}{image_name_preprocess}", img_preprocess2)
     images.append(image_name_preprocess)
 
     sudoku_grid_image = extract_sudoku_grid(img2)
@@ -98,11 +99,12 @@ def process_image_cap(img_name):
     images.append(image_name_transperspec)
 
     contour = gridContourCap(img_preprocess)
+
     # Convert to BGR for colored drawing
 
     img = extractGrid(img, contour)
 
-    img_boxes = img.copy()
+    img_boxes = sudoku_grid_image.copy()
     for box in getBoxes(img_boxes):
         cv2.rectangle(img_boxes,
                       tuple(box[0]),
@@ -114,18 +116,18 @@ def process_image_cap(img_name):
 
     boxes = extractBox(img)
 
-    numbers = predictNumbersCap(boxes)
-    print(numbers)
+    numbers1 = predictNumbersCap(boxes)
+    print(numbers1)
 
-    final_grid = sudokuGrid(numbers)
-    print(final_grid)
+    final_grid1 = sudokuGrid(numbers1)
+    print(final_grid1)
 
-    predicted_numbers_img = img.copy()
+    predicted_numbers_img1 = sudoku_grid_image.copy()
     center_points = centerPoints(img_boxes)
     counter = 0
-    for number in numbers:
+    for number in numbers1:
         if number != 0:
-            cv2.putText(predicted_numbers_img,
+            cv2.putText(predicted_numbers_img1,
                         str(number),
                         center_points[counter],
                         cv2.FONT_HERSHEY_COMPLEX,
@@ -135,18 +137,18 @@ def process_image_cap(img_name):
         counter += 1
 
     image_name_prediction = changeName(img_name, "prediction")
-    cv2.imwrite(f"{img_path}{image_name_prediction}", predicted_numbers_img)
+    cv2.imwrite(f"{img_path}{image_name_prediction}", predicted_numbers_img1)
     images.append(image_name_prediction)
 
-    original_numbers = getOriginalNumbers(final_grid)
+    original_numbers1 = getOriginalNumbers(final_grid1)
 
-    solved_sudoku = solveSudoku(final_grid)
-    print(solved_sudoku)
+    solved_sudoku1 = solveSudoku(final_grid1)
+    print(solved_sudoku1)
 
     solved_image = displaySudoku(
-        img, solved_sudoku, original_numbers)
+        sudoku_grid_image, solved_sudoku1, original_numbers1)
     image_name_solved = changeName(img_name, "solved")
     cv2.imwrite(f"{img_path}{image_name_solved}", solved_image)
     images.append(image_name_solved)
 
-    return images, solved_sudoku
+    return images, solved_sudoku1

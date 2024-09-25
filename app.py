@@ -76,26 +76,25 @@ def uploaded_file(filename):
 
 @app.route('/capture', methods=['POST'])
 def capture():
-    # Pastikan variabel path terdefinisi
-    if not os.path.exists(path):
-        os.makedirs(path)
-
+    form = UploadForm()
     # Remove all cache
     if os.listdir(path):
         for name in os.listdir(path):
-            file = f"{path}/{name}"
+            file = os.path.join(path, name)
             if os.path.isfile(file):
                 os.remove(file)
 
     data = request.get_json()
-    if 'image' not in data:
+    app.logger.debug(f'Received data: {data}')
+    if not data or 'image' not in data:
         return jsonify({'error': 'No image data found in request'}), 400
 
-    # Mengambil data gambar dari kamera
+    # Decode the image data
     try:
         image_data = data['image'].split(',')[1]
         image_data = base64.b64decode(image_data)
     except (IndexError, ValueError) as e:
+        app.logger.error(f'Error decoding image data: {str(e)}')
         return jsonify({'error': 'Invalid image data format'}), 400
 
     # Save the image with a fixed name
@@ -103,27 +102,25 @@ def capture():
     filepath = os.path.join(app.config['UPLOADED_PHOTOS_DEST'], filename)
     try:
         with open(filepath, 'wb') as f:
-            f.write(image_data)  # Simpan gambar ke server
+            f.write(image_data)  # Save image to server
     except IOError as e:
+        app.logger.error(f'Failed to save image: {str(e)}')
         return jsonify({'error': f'Failed to save image: {str(e)}'}), 500
 
     app.logger.debug(f'Captured image saved to {filename}')
 
     # Process the captured image to solve the Sudoku
     try:
-        # Solved sudoku
         images, solved_sudoku = main.process_image_cap(filename)
         # Save URLs of processed images
         images_url = [url_for('get_file', filename=image) for image in images]
+        app.logger.debug(f'Processed images URLs: {images_url}')
         solved_sudoku_list = solved_sudoku.tolist()
-
-        # Return data in the same way as upload_image
-        return jsonify({
-            'file_url': url_for('get_file', filename=filename),
-            'images': images_url,
-            'solution': solved_sudoku_list
-        })
-
+        return render_template("index.html",
+                               form=form,
+                               file_url=url_for('get_file', filename=filename),
+                               images=images_url,
+                               solution=solved_sudoku_list)
     except Exception as e:
         app.logger.error(f'Error processing captured image: {str(e)}')
         return jsonify({'error': str(e)}), 500
