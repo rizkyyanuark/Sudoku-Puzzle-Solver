@@ -56,21 +56,21 @@ The main goal of this project is to come up with an algorithm that can solve Sud
 
 ```
 sudoku-solver/
-├── app.py                     # Main Flask application to run the web server
-├── main.py                    # Entry point of the application, handling routing and logic
-├── sudoku_solver.py           # Core logic for solving the Sudoku puzzle using algorithms or ML model
-├── utils.py                   # Utility functions used throughout the project (image processing, etc.)
-├── templates/                 # HTML templates for rendering the web pages
-│   └── index.html             # Main page for the Sudoku solver web interface
-├── static/                    # Static files such as CSS, images, and other assets
-│   ├── styles.css             # CSS file for styling the web interface
-│   └── temp/                  # Temporary storage for uploaded images
-├── models/                    # Pre-trained models for digit recognition
-│   └── my_model.h5            # Machine learning model (in Keras format) for predicting Sudoku digits
-├── classification/            # Folder for system classification-related files
-│   └── System_Sudoku_Solver   # Classification model or system logic for solving Sudoku
-├── requirements.txt           # List of dependencies required to install and run the project
-└── README.md                  # Documentation for the project
+├── app.py                     
+├── main.py                    
+├── sudoku_solver.py           
+├── utils.py                   
+├── templates/                 
+│   └── index.html             
+├── static/                    
+│   ├── styles.css             
+│   └── temp/                  
+├── models/                    
+│   └── my_model.h5            
+├── classification/            
+│   └── System_Sudoku_Solver   
+├── requirements.txt           
+└── README.md                  
 ```
 
 
