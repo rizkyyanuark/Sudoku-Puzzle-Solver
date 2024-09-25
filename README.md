@@ -1,13 +1,10 @@
 <div align="center">
   <h1>Sudoku Solver Dengan Digital Image Processing dan CNN</h1>
   <img src="https://github.com/rizkyyanuark/SudokuSolver-DataCitra/blob/main/util/sudoku.png" align="center" alt="Logo" width="275" height="275">
-  <blockquote>
-This project employs two approaches: digital image processing and convolutional neural networks (CNNs). Digital image processing is used for image extraction, while CNNs are used for learning and prediction.
-    <br>
-The main goal of this project is to come up with an algorithm that can solve Sudoku puzzles from image-based input in an efficient and accurate way.
-  </blockquote>
 </div>
 
+## 🪄 Deskripsi
+This project is a web app that lets users upload an image of a Sudoku board or use a camera to capture one, then automatically solve the puzzle. It uses image processing and machine learning to detect and recognize the numbers, as well as a backtracking algorithm to solve the puzzle.
 
 ## ✨ Features
 
@@ -52,29 +49,28 @@ The main goal of this project is to come up with an algorithm that can solve Sud
 5. **Access the application in your browser:**
 
 
-## Project Structure
-
+## ⚙️ Project Structure
 ```
-sudoku-solver/
-├── app.py                     
-├── main.py                    
-├── sudoku_solver.py           
-├── utils.py                   
-├── templates/                 
-│   └── index.html             
-├── static/                    
-│   ├── styles.css             
-│   └── temp/                  
-├── models/                    
-│   └── my_model.h5            
-├── classification/            
-│   └── System_Sudoku_Solver   
-├── requirements.txt           
-└── README.md                  
+🗂️ **Sudoku-Puzzle-Solver/**
+├── 📄 app.py                     
+├── 📄 main.py                    
+├── 📄 sudoku_solver.py           
+├── 📄 utils.py                   
+├── 📁 templates/                 
+│   └── 📄 index.html             
+├── 📁 static/                    
+│   ├── 📄 styles.css             
+│   └── 📁 temp/                  
+├── 📁 models/                    
+│   └── 📄 my_model.h5            
+├── 📁 classification/            
+│   └── 📄 System_Sudoku_Solver   
+├── 📄 requirements.txt           
+└── 📄 README.md
 ```
 
 
-## Kontribusi
+## Contribution
 We'd love for you to contribute! If you want to help out, just fork this repository and create a pull request with your changes.
 
 ## License
