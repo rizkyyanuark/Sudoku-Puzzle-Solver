@@ -3,7 +3,7 @@
   <img src="https://github.com/rizkyyanuark/SudokuSolver-DataCitra/blob/main/util/sudoku.png" align="center" alt="Logo" width="275" height="275">
 </div>
 
-## 🪄 Deskripsi
+## 📝 Overview
 This project is a web app that lets users upload an image of a Sudoku board or use a camera to capture one, then automatically solve the puzzle. It uses image processing and machine learning to detect and recognize the numbers, as well as a backtracking algorithm to solve the puzzle.
 
 ## ✨ Features
@@ -47,11 +47,12 @@ This project is a web app that lets users upload an image of a Sudoku board or u
    python app.py
    ```
 5. **Access the application in your browser:**
+   - Open your web browser and navigate to [http://127.0.0.1:5000/](http://127.0.0.1:5000/) to use the app.
 
 
 ## ⚙️ Project Structure
 ```
-🗂️ Sudoku-Puzzle-Solver/
+🗂️ **Sudoku-Puzzle-Solver/**
 ├── 📄 app.py                     
 ├── 📄 main.py                    
 ├── 📄 sudoku_solver.py           
@@ -68,6 +69,14 @@ This project is a web app that lets users upload an image of a Sudoku board or u
 ├── 📄 requirements.txt           
 └── 📄 README.md
 ```
+
+## 🎥 Demo Video
+
+Check out the demo video to see the Sudoku Solver
+
+
+
+[Watch the Demo on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7221422183175139328/)
 
 
 ## Contribution
