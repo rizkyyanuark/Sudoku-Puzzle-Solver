@@ -51,7 +51,7 @@ This project is a web app that lets users upload an image of a Sudoku board or u
 
 ## ⚙️ Project Structure
 ```
-🗂️ **Sudoku-Puzzle-Solver/**
+🗂️ Sudoku-Puzzle-Solver/
 ├── 📄 app.py                     
 ├── 📄 main.py                    
 ├── 📄 sudoku_solver.py           
