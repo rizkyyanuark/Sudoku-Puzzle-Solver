@@ -1,83 +1,24 @@
-/* Style the solution grid for a compact and square display */
-.sudoku-table td {
-  width: 40px; /* Fixed width for each cell */
-  height: 40px; /* Fixed height to ensure it's square */
-  text-align: center;
-  font-size: 18px; /* Set font size */
-  border: 2px solid #343a40; /* Dark border for each cell */
-  background-color: #f8f9fa; /* Light background */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effect */
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
-}
-
-/* Thicker borders for 3x3 subgrids */
-.sudoku-table td:nth-child(3n) {
-  border-right: 4px solid #343a40; /* Thicker border on right of every 3rd cell */
-}
-
-.sudoku-table tr:nth-child(3n) td {
-  border-bottom: 4px solid #343a40; /* Thicker border on bottom of every 3rd row */
-}
-
-/* Center the table */
-.sudoku-table {
-  margin: 10px 0; /* Add some margin above and below the table */
-  border-collapse: collapse; /* Ensure borders are collapsed */
-  width: auto; /* Prevent table from stretching */
-}
-
-/* Hover effect for table cells */
-.sudoku-table td:hover {
-  background-color: #e9ecef; /* Light grey background on hover */
-}
-
-/* Add shadow to the table container */
-.sudoku-container {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 20px; /* Add some margin above the container */
-  display: inline-block; /* Ensure the container only takes necessary space */
-}
-/* Hover effect for table cells */
-.sudoku-table td:hover {
-  background-color: #e9ecef; /* Light grey background on hover */
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Stronger inner shadow on hover */
-}
-
-/* Add shadow to the table container */
-.sudoku-container {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Larger shadow for a more elegant look */
-  margin-top: 20px; /* Add some margin above the container */
-  display: inline-block; /* Ensure the container only takes necessary space */
-  transition: box-shadow 0.3s; /* Smooth transition for shadow */
-}
-
-.sudoku-container:hover {
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
-}
-
-/* Animation for cards */
-.card {
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+/* CSS Variables for colors and sizes */
+:root {
+  --primary-color: #007bff;
+  --success-color: #28a745;
+  --secondary-color: #7e807f;
+  --dark-color: #343a40;
+  --light-bg: #f8f9fa;
+  --hover-bg: #e9ecef;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hover-shadow: rgba(0, 0, 0, 0.2);
+  --font-size: 18px;
+  --cell-size: 40px;
 }
 
 /* Custom styles for the page */
 body {
-  background-color: #f8f9fa;
+  background-color: var(--light-bg);
 }
 
 .header {
-  background-color: #343a40;
+  background-color: var(--dark-color);
   color: white;
   padding: 20px 0;
 }
@@ -90,9 +31,142 @@ body {
   padding: 40px 0;
 }
 
-.card img {
-  height: 200px;
-  object-fit: cover;
+/* Style the solution grid for a compact and square display */
+.sudoku-table {
+  margin: 10px 0; /* Margin above and below the table */
+  border-collapse: collapse; /* Ensure borders are collapsed */
+  width: auto; /* Prevent table from stretching */
+}
+
+.sudoku-table td {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  text-align: center;
+  font-size: var(--font-size);
+  border: 2px solid var(--dark-color);
+  background-color: var(--light-bg);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: inset 0 0 5px var(--shadow-color);
+}
+
+/* Thicker borders for 3x3 subgrids */
+.sudoku-table td:nth-child(3n) {
+  border-right: 4px solid var(--dark-color);
+}
+
+.sudoku-table tr:nth-child(3n) td {
+  border-bottom: 4px solid var(--dark-color);
+}
+
+/* Hover effect for table cells */
+.sudoku-table td:hover {
+  background-color: var(--hover-bg);
+  box-shadow: inset 0 0 10px var(--hover-shadow);
+}
+
+/* Add shadow to the table container */
+.sudoku-container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px var(--shadow-color);
+  margin-top: 20px;
+  display: inline-block;
+  transition: box-shadow 0.3s;
+}
+
+.sudoku-container:hover {
+  box-shadow: 0 15px 30px var(--hover-shadow);
+}
+
+/* Animation for cards */
+.card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px var(--hover-shadow);
+}
+
+/* Custom styles for the buttons */
+.solve-button,
+.camera-button {
+  color: white;
+  border: none;
+  height: 30px;
+  padding: 1px 1px;
+  font-size: 14px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.solve-button {
+  background-color: var(--success-color);
+  width: 125px;
+}
+
+.solve-button:hover {
+  background-color: #218838;
+}
+
+.solve-button:active {
+  background-color: #1e7e34;
+}
+
+.solve-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.camera-button {
+  background-color: var(--secondary-color);
+  width: 100px;
+}
+
+.camera-button:hover {
+  background-color: #4e5750;
+}
+
+.camera-button:active {
+  background-color: #444744;
+}
+
+.camera-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Style for the camera preview video and canvas */
+.camera-preview,
+.camera-canvas {
+  width: 450px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  margin: 20px auto;
+  display: block;
+}
+
+.camera-preview {
+  border: 2px solid var(--primary-color);
+}
+
+.camera-canvas {
+  border: 2px solid var(--success-color);
+}
+
+/* Guideline for camera preview */
+.guideline {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 80%;
+  border: 2px dashed var(--primary-color);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 /* Modal image spin animation */
@@ -132,73 +206,4 @@ body {
 
 .modal.fade .modal-dialog {
   transform: rotateY(90deg);
-}
-
-/* Custom style untuk tombol Solve */
-.solve-button,
-.camera-button {
-  color: white; /* Warna teks putih */
-  border: none; /* Hapus border default */
-  height: 30px; /* Tinggi tombol */
-  padding: 1px 1px; /* Atur padding */
-  font-size: 14px; /* Ukuran font yang lebih besar */
-  border-radius: 5px; /* Sudut tombol sedikit melengkung */
-  font-weight: bold; /* Teks bold */
-  transition: background-color 0.3s ease; /* Animasi transisi saat hover */
-}
-
-.solve-button {
-  background-color: #28a745; /* Warna latar belakang hijau */
-  width: 125px; /* Lebar tombol */
-}
-
-.solve-button:hover {
-  background-color: #218838; /* Warna saat hover menjadi lebih gelap */
-}
-
-.solve-button:active {
-  background-color: #1e7e34; /* Warna lebih gelap saat tombol ditekan */
-}
-
-.solve-button:disabled {
-  background-color: #6c757d; /* Warna untuk tombol yang disabled */
-  cursor: not-allowed; /* Ganti kursor untuk menunjukkan tombol tidak bisa diklik */
-}
-
-.camera-button {
-  background-color: #7e807f; /* Warna latar belakang hijau */
-  width: 100px; /* Lebar tombol */
-}
-
-.camera-button:hover {
-  background-color: #4e5750; /* Warna saat hover menjadi lebih gelap */
-}
-
-.camera-button:active {
-  background-color: #444744; /* Warna lebih gelap saat tombol ditekan */
-}
-
-.camera-button:disabled {
-  background-color: #6c757d; /* Warna untuk tombol yang disabled */
-  cursor: not-allowed; /* Ganti kursor untuk menunjukkan tombol tidak bisa diklik */
-}
-
-/* Style for the camera preview video and canvas */
-.camera-preview,
-.camera-canvas {
-  width: 450px; /* Tentukan lebar yang sama untuk preview dan canvas */
-  height: auto; /* Jaga agar tinggi tetap mengikuti rasio */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  margin: 20px auto; /* Tambahkan margin atas/bawah dan buat auto untuk mengatur posisi center */
-  display: block; /* Pastikan elemen diperlakukan sebagai blok */
-}
-
-/* Border colors for distinction */
-.camera-preview {
-  border: 2px solid #007bff; /* Blue border */
-}
-
-.camera-canvas {
-  border: 2px solid #28a745; /* Green border */
 }
