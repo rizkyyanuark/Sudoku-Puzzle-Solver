@@ -25,7 +25,7 @@ This project is a web app that lets users upload an image of a Sudoku board or u
 1. **Clone this repository:**
 
    ```bash
-   git clone https://github.com/your-username/Sudoku-Puzzle-Solver.git
+   git clone https://github.com/rizkyyanuark/Sudoku-Puzzle-Solver.git
    cd Sudoku-Puzzle-Solver
 2. **Create and activate a virtual environment:**
    - On Windows:
