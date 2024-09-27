@@ -13,7 +13,8 @@ app.config['SECRET_KEY'] = os.urandom(24)
 
 # Create 'uploads' folder if it doesn't exist
 path = 'static/temp'
-
+if not os.path.exists(path):
+    os.makedirs(path)
 
 app.config['UPLOADED_PHOTOS_DEST'] = path
 photos = UploadSet('photos', IMAGES)
