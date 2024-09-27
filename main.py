@@ -2,7 +2,6 @@ from utils import preprocess, splitcells, CropCell, getOriginalNumbers, getBoxes
 from sudoku_solver import solveSudoku
 from tensorflow.keras.models import load_model
 import cv2
-import os
 import re
 import numpy as np
 
