@@ -30,13 +30,13 @@ This project is a web app that lets users upload an image of a Sudoku board or u
 2. **Create and activate a virtual environment:**
    - On Windows:
      ```
-     python -m venv venv
-     venv\Scripts\activate
+     python -m venv sudoku_venv
+     sudoku_venv\Scripts\activate
      ```
    - on Macos/Linux:
      ```
-     python3 -m venv venv
-     source venv/bin/activate
+     python3 -m venv sudoku_venv
+     source sudoku_venv/bin/activate
      ```
 3. **Install dependencies:**
    ```
