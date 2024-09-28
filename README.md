@@ -106,26 +106,5 @@ This project is licensed under the MIT license. See the [LICENSE](./LICENSE) fil
   <br />
   <sub>RizkyYanuarK</sub>
 </td>
-<td align="center">
-  <a href="https://github.com/fadhilahnuria">
-    <img src="https://avatars.githubusercontent.com/u/114966285?v=4" width="100px;" alt="Fadhilah Nuria Shinta"/>
-  </a>
-  <br />
-  <sub>Fadhilah Nuria Shinta</sub>
-</td>
-<td align="center">
-  <a href="https://github.com/prenji3">
-    <img src="https://avatars.githubusercontent.com/u/171494212?v=4" width="100px;" alt="Rivadian Ardiansyah"/>
-  </a>
-  <br />
-  <sub>Rivadian Ardiansyah</sub>
-</td>
-<td align="center">
-  <a href="https://github.com/resharjuliand">
-    <img src="https://avatars.githubusercontent.com/u/171216405?v=4" width="100px;" alt="Reshar Faldi Julianda"/>
-  </a>
-  <br />
-  <sub>Reshar Faldi Julianda</sub>
-</td>
   </table>
 </div>
