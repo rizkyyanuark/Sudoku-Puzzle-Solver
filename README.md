@@ -25,18 +25,18 @@ This project is a web app that lets users upload an image of a Sudoku board or u
 1. **Clone this repository:**
 
    ```bash
-   git clone https://github.com/your-username/Sudoku-Puzzle-Solver.git
+   git clone https://github.com/rizkyyanuark/Sudoku-Puzzle-Solver.git
    cd Sudoku-Puzzle-Solver
 2. **Create and activate a virtual environment:**
    - On Windows:
      ```
-     python -m venv venv
-     venv\Scripts\activate
+     python -m venv sudoku_venv
+     sudoku_venv\Scripts\activate
      ```
    - on Macos/Linux:
      ```
-     python3 -m venv venv
-     source venv/bin/activate
+     python3 -m venv sudoku_venv
+     source sudoku_venv/bin/activate
      ```
 3. **Install dependencies:**
    ```
@@ -52,7 +52,7 @@ This project is a web app that lets users upload an image of a Sudoku board or u
 
 ## ⚙️ Project Structure
 ```
-🗂️ **Sudoku-Puzzle-Solver/**
+🗂️ Sudoku-Puzzle-Solver/
 ├── 📄 app.py                     
 ├── 📄 main.py                    
 ├── 📄 sudoku_solver.py           
