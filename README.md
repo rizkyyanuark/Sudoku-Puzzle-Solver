@@ -85,15 +85,10 @@ Check out the demo video to see the Sudoku Solver
 </div>
 
 
-
-
----
-
 ## 🛠️ Contribution
 
 We'd love for you to contribute! If you'd like to help out, feel free to fork this repository, make your changes, and submit a pull request. Let's make this project even better together!
 
----
 
 ## 📜 License
 
