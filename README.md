@@ -76,7 +76,7 @@ Check out the demo video to see the Sudoku Solver
 
 <div align="center">
   <a href="https://lookerstudio.google.com/reporting/1cd78423-a8d7-496f-bea2-35fce8ee06f7/page/ynr1D" target="_blank">
-    <img src="" alt="Report Video" width="600"/>
+    <img src="https://github.com/rizkyyanuark/Sudoku-Puzzle-Solver/blob/ed15bef11268f939ff16cf001945e4bb48ae983e/material/demo.gif" alt="Report Video" width="600"/>
   </a>
 </div>
 
