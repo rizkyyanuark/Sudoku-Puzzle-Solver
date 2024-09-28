@@ -87,13 +87,17 @@ Check out the demo video to see the Sudoku Solver
 
 
 
+---
 
+## 🛠️ Contribution
 
-## Contribution
-We'd love for you to contribute! If you want to help out, just fork this repository and create a pull request with your changes.
+We'd love for you to contribute! If you'd like to help out, feel free to fork this repository, make your changes, and submit a pull request. Let's make this project even better together!
 
-## License
-This project is licensed under the MIT license. See the LICENSE file for more information.
+---
+
+## 📜 License
+
+This project is licensed under the MIT license. See the [LICENSE](./LICENSE) file for more information.
 
 
 ## Teams
