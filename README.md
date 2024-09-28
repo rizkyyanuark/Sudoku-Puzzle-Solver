@@ -76,7 +76,7 @@ Check out the demo video to see the Sudoku Solver
 
 <div align="center">
   <a href="https://www.linkedin.com/feed/update/urn:li:activity:7221422183175139328/" target="_blank">
-    Watch the Demo on LinkedIn
+    Watch Full Demo on LinkedIn
   </a>
   <br/>
   <a href="https://lookerstudio.google.com/reporting/1cd78423-a8d7-496f-bea2-35fce8ee06f7/page/ynr1D" target="_blank">
