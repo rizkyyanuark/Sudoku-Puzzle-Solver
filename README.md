@@ -75,11 +75,11 @@ This project is a web app that lets users upload an image of a Sudoku board or u
 Check out the demo video to see the Sudoku Solver
 
 <div align="center">
-  <a href="https://www.linkedin.com/feed/update/urn:li:activity:7221422183175139328/" target="_blank">
+  <a href="https://www.linkedin.com/posts/rizkyyanuark_computervision-deeplearning-sudokusolver-activity-7245997572933255168-1HKo?utm_source=share&utm_medium=member_desktop" target="_blank">
     Watch Full Demo on LinkedIn
   </a>
   <br/>
-  <a href="https://lookerstudio.google.com/reporting/1cd78423-a8d7-496f-bea2-35fce8ee06f7/page/ynr1D" target="_blank">
+  <a href="https://www.linkedin.com/posts/rizkyyanuark_computervision-deeplearning-sudokusolver-activity-7245997572933255168-1HKo?utm_source=share&utm_medium=member_desktop" target="_blank">
     <img src="https://github.com/rizkyyanuark/Sudoku-Puzzle-Solver/blob/ed15bef11268f939ff16cf001945e4bb48ae983e/material/demo.gif" alt="Report Video" width="600"/>
   </a>
 </div>
