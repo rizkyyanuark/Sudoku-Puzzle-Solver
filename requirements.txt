@@ -13,4 +13,3 @@ pillow==10.3.0
 tensorflow==2.13.0
 Werkzeug==3.0.3
 WTForms==3.1.2
-setuptools
