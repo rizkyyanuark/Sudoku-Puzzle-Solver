@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "app.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "installCommand": "pip install --upgrade pip && pip install --disable-pip-version-check --target . --upgrade -r requirements.txt"
+      }
     }
   ],
   "routes": [
