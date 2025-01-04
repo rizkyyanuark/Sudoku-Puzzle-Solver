@@ -62,7 +62,6 @@ requests-oauthlib==2.0.0
 scikit-image==0.25.0
 scipy==1.14.1
 shapely==2.0.6
-six==1.17.0
 sympy==1.13.3
 tensorboard==2.13.0
 tensorboard-data-server==0.7.2
