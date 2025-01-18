@@ -1,5 +1,5 @@
-from utils import preprocess, splitcells, CropCell, getOriginalNumbers, getBoxes, gridContour, centerPoints, displaySudoku, extract_sudoku_grid, sudokuGrid, predictNumbers, imPreprocess, predictNumbersCap, extractGrid, extractBox, gridContourCap
-from sudoku_solver import solveSudoku
+from util.process import preprocess, splitcells, CropCell, getOriginalNumbers, getBoxes, gridContour, centerPoints, displaySudoku, extract_sudoku_grid, sudokuGrid, predictNumbers, imPreprocess, predictNumbersCap, extractGrid, extractBox, gridContourCap
+from util.sudoku_solver import solveSudoku
 from tensorflow.keras.models import load_model
 import cv2
 import re
@@ -18,9 +18,20 @@ def changeName(name, value):
 def process_image(img_name):
     images = []
     img = cv2.imread(f'{img_path}{img_name}')
+
+    # Tambahkan pengecekan setelah membaca gambar
+    if img is None:
+        print(
+            f"Error: Gambar {img_name} tidak ditemukan atau tidak dapat dibaca.")
+        return [], None
+
     img = cv2.resize(img, (450, 450))
 
     img2 = cv2.imread(f'{img_path}{img_name}')
+    if img2 is None:
+        print(
+            f"Error: Gambar {img_name} tidak ditemukan atau tidak dapat dibaca.")
+        return [], None
 
     img_preprocess = preprocess(img)
     img_preprocess2 = preprocess(img2)
@@ -86,6 +97,12 @@ def process_image(img_name):
 def process_image_cap(img_name):
     images = []
     img = cv2.imread(f'{img_path}{img_name}')
+
+    # Tambahkan pengecekan setelah membaca gambar
+    if img is None:
+        print(
+            f"Error: Gambar {img_name} tidak ditemukan atau tidak dapat dibaca.")
+        return [], None
 
     img_preprocess = imPreprocess(img)
     image_name_preprocess = changeName(img_name, "preprocess")
