@@ -1,5 +1,6 @@
 pip==23.0.1
 setuptools==65.5.0
+distutils
 Flask==2.0.3
 Flask-WTF==1.0.0
 Flask-Uploads==0.2.1
