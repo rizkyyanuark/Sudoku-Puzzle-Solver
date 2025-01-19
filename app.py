@@ -1,10 +1,13 @@
 from flask import Flask, request, url_for, send_from_directory, jsonify
 from werkzeug.utils import secure_filename
+from flask_cors import CORS
 import os
 from util.main import process_image, process_image_cap
 import base64
 
 app = Flask(__name__)
+CORS(app)  # Mengaktifkan CORS untuk semua rute
+
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config["ALLOWED_EXTENSIONS"] = {"jpg", "jpeg", "png"}
 path = 'static/temp'
@@ -49,8 +52,8 @@ def upload_image():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         images, solved_sudoku = process_image(filename)
-        images_url = [url_for('uploaded_file', filename=image)
-                      for image in images]
+        image_paths = [url_for('uploaded_file', filename=image)
+                       for image in images]
         solved_sudoku_list = solved_sudoku.tolist() if solved_sudoku is not None else []
         return jsonify({
             "status": {
@@ -58,7 +61,7 @@ def upload_image():
                 "message": "Success",
             },
             "data": {
-                "images": images_url,
+                "images": image_paths,
                 "solution": solved_sudoku_list
             }
         }), 200
@@ -90,9 +93,11 @@ def capture():
         f.write(image_data)
 
     images, solved_sudoku = process_image_cap(filename)
+    image_paths = [url_for('uploaded_file', filename=image)
+                   for image in images]
     solved_sudoku_list = solved_sudoku.tolist() if solved_sudoku is not None else []
     return jsonify({
-        'images': [url_for('uploaded_file', filename=image) for image in images],
+        'images': image_paths,
         'solution': solved_sudoku_list
     }), 200
 
@@ -102,5 +107,6 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
