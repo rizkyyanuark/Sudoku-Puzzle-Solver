@@ -7,10 +7,16 @@ ENV APP_HOME /app
 # Set the working directory
 WORKDIR $APP_HOME
 
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libopencv-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy the application code into the container
 COPY . ./
 
-# Install dependencies
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the port that the app runs on
