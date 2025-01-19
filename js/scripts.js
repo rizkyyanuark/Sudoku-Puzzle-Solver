@@ -98,17 +98,12 @@ function solveSudoku() {
 
   fetch("http://127.0.0.1:5000/capture", {
     method: "POST",
+    body: JSON.stringify({ image: imageData }),
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ image: imageData }),
   })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok: " + response.statusText);
-      }
-      return response.json(); // Expect JSON response
-    })
+    .then((response) => response.json())
     .then((data) => {
       displayResults(data);
     })
@@ -118,41 +113,49 @@ function solveSudoku() {
     })
     .finally(() => {
       hideLoading("solve-button");
+      document.getElementById("solve-button").style.display = "none";
+      document.getElementById("recapture-button").style.display = "none";
     });
 }
 
 // Function to upload image
 function uploadImage(event) {
   event.preventDefault();
+
+  // Get the input file
   var input = document.getElementById("image-input");
   var file = input.files[0];
 
+  // Validate file input
   if (!file) {
     alert("Please select an image file.");
     return;
   }
 
+  if (!file.type.startsWith("image/")) {
+    alert("Selected file is not an image. Please choose a valid image file.");
+    return;
+  }
+
+  // Prepare FormData to send image
   var formData = new FormData();
   formData.append("image", file);
 
+  // Show loading indicator
   showLoading("upload-button");
 
+  // Send the image to the backend
   fetch("http://127.0.0.1:5000/upload", {
     method: "POST",
     body: formData,
   })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok: " + response.statusText);
-      }
-      return response.json(); // Expect JSON response
-    })
+    .then((response) => response.json())
     .then((data) => {
       displayResults(data);
     })
     .catch((error) => {
-      console.error("Error:", error);
-      alert("Terjadi kesalahan saat mengirim gambar ke server.");
+      console.error("Fetch Error Details:", error);
+      alert("Terjadi kesalahan saat mengirim gambar ke server: " + error.message);
     })
     .finally(() => {
       hideLoading("upload-button");
@@ -161,10 +164,11 @@ function uploadImage(event) {
 
 // Function to display results
 function displayResults(data) {
+  console.log("Data received from server:", data); // Logging for debugging
   var resultsSection = document.getElementById("results-section");
   resultsSection.innerHTML = "";
 
-  if (data.status.code !== 200) {
+  if (data.status && data.status.code !== 200) {
     alert(data.status.message);
     return;
   }
@@ -176,9 +180,9 @@ function displayResults(data) {
     var imagesContainer = document.createElement("div");
     imagesContainer.className = "images-container";
 
-    images.forEach((imageUrl) => {
+    images.forEach((imagePath) => {
       var img = document.createElement("img");
-      img.src = imageUrl;
+      img.src = imagePath;
       img.className = "img-thumbnail";
       img.style.cursor = "pointer";
       img.onclick = function () {
