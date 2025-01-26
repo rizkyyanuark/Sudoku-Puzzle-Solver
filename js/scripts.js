@@ -1,3 +1,6 @@
+let currentStream;
+let currentFacingMode = "environment"; // Default to back camera
+
 // Function to show loading on button click
 function showLoading(buttonId) {
   var button = document.getElementById(buttonId);
@@ -18,6 +21,7 @@ function openCamera() {
   var captureButton = document.getElementById("capture-button");
   var solveButton = document.getElementById("solve-button");
   var recaptureButton = document.getElementById("recapture-button");
+  var switchCameraButton = document.getElementById("switch-camera-button");
   var canvas = document.getElementById("camera-canvas");
 
   // Reset visibility of elements
@@ -25,18 +29,29 @@ function openCamera() {
   captureButton.style.display = "inline-block";
   solveButton.style.display = "none";
   recaptureButton.style.display = "none";
+  switchCameraButton.style.display = "inline-block";
   canvas.style.display = "none";
 
   // Access the camera
   navigator.mediaDevices
-    .getUserMedia({ video: true })
+    .getUserMedia({ video: { facingMode: currentFacingMode } })
     .then(function (stream) {
+      currentStream = stream;
       video.srcObject = stream;
     })
     .catch(function (err) {
       console.error("Error accessing the camera: " + err);
       alert("Tidak dapat mengakses kamera. Pastikan kamera terhubung dan izin akses diberikan.");
     });
+}
+
+// Function to switch camera
+function switchCamera() {
+  if (currentStream) {
+    currentStream.getTracks().forEach((track) => track.stop());
+  }
+  currentFacingMode = currentFacingMode === "environment" ? "user" : "environment";
+  openCamera();
 }
 
 // Function to capture image from video
@@ -46,6 +61,7 @@ function captureImage() {
   var captureButton = document.getElementById("capture-button");
   var solveButton = document.getElementById("solve-button");
   var recaptureButton = document.getElementById("recapture-button");
+  var switchCameraButton = document.getElementById("switch-camera-button");
 
   // Set canvas dimensions to match video dimensions
   canvas.width = video.videoWidth;
@@ -68,6 +84,7 @@ function captureImage() {
   captureButton.style.display = "none";
   solveButton.style.display = "inline-block";
   recaptureButton.style.display = "inline-block";
+  switchCameraButton.style.display = "none";
 }
 
 // Function to recapture image
@@ -77,6 +94,7 @@ function recaptureImage() {
   var captureButton = document.getElementById("capture-button");
   var solveButton = document.getElementById("solve-button");
   var recaptureButton = document.getElementById("recapture-button");
+  var switchCameraButton = document.getElementById("switch-camera-button");
 
   // Reset visibility of elements
   canvas.style.display = "none";
@@ -84,6 +102,7 @@ function recaptureImage() {
   captureButton.style.display = "inline-block";
   solveButton.style.display = "none";
   recaptureButton.style.display = "none";
+  switchCameraButton.style.display = "inline-block";
 
   // Re-enable the camera
   openCamera();
@@ -106,6 +125,13 @@ function solveSudoku() {
     .then((response) => response.json())
     .then((data) => {
       displayResults(data);
+      // Hide camera section after solving
+      document.getElementById("camera-preview").style.display = "none";
+      document.getElementById("camera-canvas").style.display = "none";
+      document.getElementById("capture-button").style.display = "none";
+      document.getElementById("solve-button").style.display = "none";
+      document.getElementById("recapture-button").style.display = "none";
+      document.getElementById("switch-camera-button").style.display = "none";
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -113,8 +139,6 @@ function solveSudoku() {
     })
     .finally(() => {
       hideLoading("solve-button");
-      document.getElementById("solve-button").style.display = "none";
-      document.getElementById("recapture-button").style.display = "none";
     });
 }
 
@@ -152,6 +176,13 @@ function uploadImage(event) {
     .then((response) => response.json())
     .then((data) => {
       displayResults(data);
+      // Hide camera section after solving
+      document.getElementById("camera-preview").style.display = "none";
+      document.getElementById("camera-canvas").style.display = "none";
+      document.getElementById("capture-button").style.display = "none";
+      document.getElementById("solve-button").style.display = "none";
+      document.getElementById("recapture-button").style.display = "none";
+      document.getElementById("switch-camera-button").style.display = "none";
     })
     .catch((error) => {
       console.error("Fetch Error Details:", error);
