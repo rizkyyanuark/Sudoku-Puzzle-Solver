@@ -18,7 +18,7 @@ This project is a web app that lets users upload an image of a Sudoku board or u
 - **Backend** : Python, Flask
 - **Image Processing** : OpenCV
 - **Machine Learning** : TensorFlow, Keras
-- **OCR Model** : EasyOCR
+- **Add OCR Model** : EasyOCR
 
 ## 🚀 Installation
 
