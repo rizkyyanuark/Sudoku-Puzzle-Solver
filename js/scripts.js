@@ -115,7 +115,7 @@ function solveSudoku() {
 
   showLoading("solve-button");
 
-  fetch("http://127.0.0.1:5000/capture", {
+  fetch("https://sudoku-solver-service-333251236087.asia-southeast2.run.app/capture", {
     method: "POST",
     body: JSON.stringify({ image: imageData }),
     headers: {
