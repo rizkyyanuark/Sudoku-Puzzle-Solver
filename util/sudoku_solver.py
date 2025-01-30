@@ -2,8 +2,6 @@
 Sudoku Solver
 Here I use backtracking logic to solve this puzzle.
 '''
-
-# Libraries
 import numpy as np
 
 # Find if it is possible to put the number on that box

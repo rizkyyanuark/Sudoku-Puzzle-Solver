@@ -3,7 +3,6 @@ from util.sudoku_solver import solveSudoku
 from tensorflow.keras.models import load_model
 import cv2
 import re
-import numpy as np
 
 MODEL_PATH = 'models/my_model.h5'
 img_path = 'static/temp/'

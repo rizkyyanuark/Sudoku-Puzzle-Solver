@@ -7,6 +7,12 @@ ENV APP_HOME /app
 # Set the working directory
 WORKDIR $APP_HOME
 
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libopencv-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy the application code into the container
 COPY . ./
 
@@ -15,6 +21,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the port that the app runs on
 EXPOSE 8080
+ENV PORT=8080
 
 # Run the application using gunicorn
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:app

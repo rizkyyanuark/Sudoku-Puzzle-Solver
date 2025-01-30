@@ -1,11 +1,8 @@
 import cv2
 import numpy as np
 from PIL import Image
-import tensorflow as tf
 import easyocr
 
-# Load your custom model
-model = tf.keras.models.load_model('models/my_model.h5')
 
 # Global Variable
 DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9']

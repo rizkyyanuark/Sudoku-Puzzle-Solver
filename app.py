@@ -28,26 +28,15 @@ def index():
             "message": "Welcome to model api sudoku solver",
         },
         "data": None
-    }), 200
+    })
 
 
-@app.route('/upload', methods=['POST'])
-def upload_image():
-    if os.listdir(path):
-        for name in os.listdir(path):
-            file = f"{path}/{name}"
-            if os.path.isfile(file):
-                os.remove(file)
+@app.route("/upload", methods=["POST"])
+def upload_file():
     if "image" not in request.files:
-        return jsonify({
-            "status": {
-                "code": 400,
-                "message": "No image provided",
-            },
-            "data": None
-        }), 400
+        return jsonify({"error": "No image provided"}), 400
 
-    file = request.files['image']
+    file = request.files["image"]
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -58,21 +47,15 @@ def upload_image():
         return jsonify({
             "status": {
                 "code": 200,
-                "message": "Success",
+                "message": "Image processed successfully"
             },
             "data": {
                 "images": image_paths,
                 "solution": solved_sudoku_list
             }
-        }), 200
+        })
     else:
-        return jsonify({
-            "status": {
-                "code": 400,
-                "message": "Invalid file type",
-            },
-            "data": None
-        }), 400
+        return jsonify({"error": "Invalid file type"}), 400
 
 
 @app.route('/capture', methods=['POST'])
@@ -97,9 +80,15 @@ def capture():
                    for image in images]
     solved_sudoku_list = solved_sudoku.tolist() if solved_sudoku is not None else []
     return jsonify({
-        'images': image_paths,
-        'solution': solved_sudoku_list
-    }), 200
+        "status": {
+            "code": 200,
+            "message": "Image processed successfully"
+        },
+        "data": {
+            "images": image_paths,
+            "solution": solved_sudoku_list
+        }
+    })
 
 
 @app.route('/uploads/<filename>')
@@ -107,6 +96,5 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
