@@ -169,7 +169,7 @@ function uploadImage(event) {
   showLoading("upload-button");
 
   // Send the image to the backend
-  fetch("http://127.0.0.1:5000/upload", {
+  fetch("https://sudoku-solver-service-333251236087.asia-southeast2.run.app/upload", {
     method: "POST",
     body: formData,
   })
