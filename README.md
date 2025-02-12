@@ -46,12 +46,12 @@ This project is a web app that lets users upload an image of a Sudoku board or u
    ```
    pip install -r requirements.txt
    ```
-4. **Run the application:**
+4. **Run the backend application:**
    ```
    python app.py
    ```
 5. **Access the application in your browser:**
-   - Open your web browser and navigate to [http://127.0.0.1:5000/](http://127.0.0.1:5000/) to use the app.
+   - Open your web browser and navigate to index.html in root folder to use the app.
 
 ## ⚙️ Project Structure
 
