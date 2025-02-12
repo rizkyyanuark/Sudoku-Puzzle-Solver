@@ -4,6 +4,7 @@
 </div>
 
 ## 📝 Overview
+
 This project is a web app that lets users upload an image of a Sudoku board or use a camera to capture one, then automatically solve the puzzle. It uses image processing and machine learning to detect and recognize the numbers, as well as a backtracking algorithm to solve the puzzle.
 
 ## ✨ Features
@@ -14,6 +15,7 @@ This project is a web app that lets users upload an image of a Sudoku board or u
 - **📊 Result Display** : After solving, the original image, the processed image, and the solved Sudoku puzzle are presented in an easy-to-read table format.
 
 ## 🛠️ Technologies Used
+
 - **Frontend** : HTML, CSS, JavaScript, Bootstrap
 - **Backend** : Python, Flask
 - **Image Processing** : OpenCV
@@ -27,6 +29,8 @@ This project is a web app that lets users upload an image of a Sudoku board or u
    ```bash
    git clone https://github.com/rizkyyanuark/Sudoku-Puzzle-Solver.git
    cd Sudoku-Puzzle-Solver
+   ```
+
 2. **Create and activate a virtual environment:**
    - On Windows:
      ```
@@ -49,24 +53,29 @@ This project is a web app that lets users upload an image of a Sudoku board or u
 5. **Access the application in your browser:**
    - Open your web browser and navigate to [http://127.0.0.1:5000/](http://127.0.0.1:5000/) to use the app.
 
-
 ## ⚙️ Project Structure
+
 ```
 🗂️ Sudoku-Puzzle-Solver/
-├── 📄 app.py                     
-├── 📄 main.py                    
-├── 📄 sudoku_solver.py           
-├── 📄 utils.py                   
-├── 📁 templates/                 
-│   └── 📄 index.html             
-├── 📁 static/                    
-│   ├── 📄 styles.css             
-│   └── 📁 temp/                  
-├── 📁 models/                    
-│   └── 📄 my_model.h5            
-├── 📁 classification/            
-│   └── 📄 System_Sudoku_Solver   
-├── 📄 requirements.txt           
+├── 📁 static/
+│   ├── 📄 styles.css
+│   └── 📁 temp/
+├── 📁 models/
+│   └── 📄 my_model.h5
+├── 📁 classification/
+│   └── 📄 System_Sudoku_Solver
+├── 📁 util/
+│   ├── 📄 main.py
+│   ├── 📄 process.py
+│   ├── 📄 sudoku_solver.py
+├── 📄 requirements.txt
+├── 📄 cloudbuild.yaml
+├── 📄 Dockerfile
+├── 📄 .dockerignore
+├── 📄 .gitignore
+├── 📄 .gitattributes
+├── 📄 app.py
+├── 📄 index.html
 └── 📄 README.md
 ```
 
@@ -84,18 +93,16 @@ Check out the demo video to see the Sudoku Solver
   </a>
 </div>
 
-
 ## 🛠️ Contribution
 
 We'd love for you to contribute! If you'd like to help out, feel free to fork this repository, make your changes, and submit a pull request. Let's make this project even better together!
-
 
 ## 📜 License
 
 This project is licensed under the MIT license. See the [LICENSE](./LICENSE) file for more information.
 
-
 ## Teams
+
 <div align="center">
   <table style="margin: auto;">
     <tr>
