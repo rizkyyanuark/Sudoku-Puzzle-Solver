@@ -67,7 +67,7 @@ This project is a web app that lets users upload an image of a Sudoku board or u
 ├── 📁 util/
 │   ├── 📄 main.py
 │   ├── 📄 process.py
-│   ├── 📄 sudoku_solver.py
+│   └──📄 sudoku_solver.py
 ├── 📄 requirements.txt
 ├── 📄 cloudbuild.yaml
 ├── 📄 Dockerfile
