@@ -1,3 +1,4 @@
+// filepath: /C:/Users/rizky/OneDrive/Dokumen/GitHub/SudokuSolverDariCitraDigital/js/scripts.js
 let currentStream;
 let currentFacingMode = "environment"; // Default to back camera
 
@@ -115,7 +116,7 @@ function solveSudoku() {
 
   showLoading("solve-button");
 
-  fetch("https://sudoku-solver-service-333251236087.asia-southeast2.run.app/capture", {
+  fetch("http://127.0.0.1:5000/upload", {
     method: "POST",
     body: JSON.stringify({ image: imageData }),
     headers: {
@@ -169,7 +170,7 @@ function uploadImage(event) {
   showLoading("upload-button");
 
   // Send the image to the backend
-  fetch("https://sudoku-solver-service-333251236087.asia-southeast2.run.app/upload", {
+  fetch("http://127.0.0.1:5000/upload", {
     method: "POST",
     body: formData,
   })

@@ -1,23 +1,43 @@
-from flask import Flask, request, url_for, send_from_directory, jsonify
+from flask import Flask, request, url_for, jsonify, session
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 import os
 from util.main import process_image, process_image_cap
 import base64
+import firebase_admin
+from firebase_admin import credentials, storage
 
 app = Flask(__name__)
 CORS(app)  # Mengaktifkan CORS untuk semua rute
 
+# Initialize Firebase Admin SDK
+cred = credentials.Certificate("credentials-firebase.json")
+firebase_admin.initialize_app(cred, {
+    "storageBucket": os.getenv('bucket-firestore')
+})
+
+
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config["ALLOWED_EXTENSIONS"] = {"jpg", "jpeg", "png"}
-path = 'static/temp'
-if not os.path.exists(path):
-    os.makedirs(path)
-app.config['UPLOAD_FOLDER'] = path
+app.config['UPLOAD_FOLDER'] = 'static/temp'
 
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config["ALLOWED_EXTENSIONS"]
+
+
+def upload_to_firebase(file, filename):
+    bucket = storage.bucket()
+    blob = bucket.blob(filename)
+    blob.upload_from_file(file)
+    blob.make_public()  # Jadikan publik agar bisa diakses oleh frontend
+    return blob.public_url  # Kembalikan URL publik untuk frontend
+
+
+def delete_from_firebase(filename):
+    bucket = storage.bucket()
+    blob = bucket.blob(filename)
+    blob.delete()
 
 
 @app.route("/", methods=["GET"])
@@ -38,11 +58,19 @@ def upload_file():
 
     file = request.files["image"]
     if file and allowed_file(file.filename):
+        # Hapus gambar sebelumnya jika ada
+        if 'previous_image' in session:
+            delete_from_firebase(session['previous_image'])
+
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         images, solved_sudoku = process_image(filename)
-        image_paths = [url_for('uploaded_file', filename=image)
-                       for image in images]
+        image_urls = [upload_to_firebase(open(os.path.join(app.config['UPLOAD_FOLDER'], image), 'rb'), image)
+                      for image in images]
+
+        # Simpan nama file gambar yang diunggah ke sesi
+        session['previous_image'] = filename
+
         solved_sudoku_list = solved_sudoku.tolist() if solved_sudoku is not None else []
         return jsonify({
             "status": {
@@ -50,7 +78,7 @@ def upload_file():
                 "message": "Image processed successfully"
             },
             "data": {
-                "images": image_paths,
+                "images": image_urls,
                 "solution": solved_sudoku_list
             }
         })
@@ -70,14 +98,22 @@ def capture():
     except (IndexError, ValueError):
         return jsonify({'error': 'Invalid image data format'}), 400
 
+    # Hapus gambar sebelumnya jika ada
+    if 'previous_image' in session:
+        delete_from_firebase(session['previous_image'])
+
     filename = 'captured_image.jpg'
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     with open(filepath, 'wb') as f:
         f.write(image_data)
 
     images, solved_sudoku = process_image_cap(filename)
-    image_paths = [url_for('uploaded_file', filename=image)
-                   for image in images]
+    image_urls = [upload_to_firebase(open(os.path.join(app.config['UPLOAD_FOLDER'], image), 'rb'), image)
+                  for image in images]
+
+    # Simpan nama file gambar yang diunggah ke sesi
+    session['previous_image'] = filename
+
     solved_sudoku_list = solved_sudoku.tolist() if solved_sudoku is not None else []
     return jsonify({
         "status": {
@@ -85,15 +121,10 @@ def capture():
             "message": "Image processed successfully"
         },
         "data": {
-            "images": image_paths,
+            "images": image_urls,
             "solution": solved_sudoku_list
         }
     })
-
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
 if __name__ == '__main__':

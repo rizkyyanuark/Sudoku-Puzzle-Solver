@@ -1,13 +1,41 @@
 steps:
   # Build Docker image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "asia-southeast2-docker.pkg.dev/${PROJECT_ID}/sudoku-solver/sudoku-solver-service", "."]
+    args:
+      - "build"
+      - "--cache-from=asia-southeast2-docker.pkg.dev/${PROJECT_ID}/sudoku-solver/sudoku-solver-service:latest"
+      - "-t"
+      - "asia-southeast2-docker.pkg.dev/${PROJECT_ID}/sudoku-solver/sudoku-solver-service:${SHORT_SHA}"
+      - "."
     env:
       - "DOCKER_BUILDKIT=1"
 
   # Push Docker image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "asia-southeast2-docker.pkg.dev/${PROJECT_ID}/sudoku-solver/sudoku-solver-service"]
+    args:
+      - "push"
+      - "asia-southeast2-docker.pkg.dev/${PROJECT_ID}/sudoku-solver/sudoku-solver-service:${SHORT_SHA}"
+
+  # Deploy to Cloud Run
+  - name: "gcr.io/cloud-builders/gcloud"
+    args:
+      - "run"
+      - "deploy"
+      - "sudoku-solver-service"
+      - "--image=asia-southeast2-docker.pkg.dev/${PROJECT_ID}/sudoku-solver/sudoku-solver-service:${SHORT_SHA}"
+      - "--platform=managed"
+      - "--region=asia-southeast2"
+      - "--allow-unauthenticated"
+      - "--memory=4Gi"
+      - "--cpu=4"
+      - "--no-cpu-throttling"
+      - "--concurrency=10"
+      - "--max-instances=5"
+      - "--min-instances=0"
+      - "--timeout=300"
+      - "--update-env-vars=PROJECT_ID=${PROJECT_ID}"
+      - "--service-account=333251236087-compute@developer.gserviceaccount.com"
+      - "--quiet"
 
 options:
   logging: CLOUD_LOGGING_ONLY
