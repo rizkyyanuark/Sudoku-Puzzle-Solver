@@ -4,16 +4,30 @@ from flask_cors import CORS
 import os
 from util.main import process_image, process_image_cap
 import base64
+import json
 import firebase_admin
 from firebase_admin import credentials, storage
+from google.cloud import secretmanager
 
 app = Flask(__name__)
-CORS(app)  # Mengaktifkan CORS untuk semua rute
+CORS(app)
+
+
+def get_secret(secret_name, project_id=None):
+    client = secretmanager.SecretManagerServiceClient()
+    project_id = os.getenv("PROJECT_ID")
+    secret_version = f'projects/{project_id}/secrets/{secret_name}/versions/latest'
+    response = client.access_secret_version(name=secret_version)
+    return response.payload.data.decode('UTF-8')
+
+
+firebase_key = get_secret("sudoku-solver")
+firebase_key = json.loads(firebase_key)
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("credentials-firebase.json")
+cred = credentials.Certificate(firebase_key)
 firebase_admin.initialize_app(cred, {
-    "storageBucket": os.getenv('bucket-firestore')
+    "storageBucket": firebase_key["bucket-firestore"]
 })
 
 
@@ -30,8 +44,8 @@ def upload_to_firebase(file, filename):
     bucket = storage.bucket()
     blob = bucket.blob(filename)
     blob.upload_from_file(file)
-    blob.make_public()  # Jadikan publik agar bisa diakses oleh frontend
-    return blob.public_url  # Kembalikan URL publik untuk frontend
+    blob.make_public()
+    return blob.public_url
 
 
 def delete_from_firebase(filename):
