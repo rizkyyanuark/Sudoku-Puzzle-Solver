@@ -30,7 +30,7 @@ steps:
       - "--cpu=4"
       - "--no-cpu-throttling"
       - "--concurrency=10"
-      - "--max-instances=5"
+      - "--max-instances=2"
       - "--min-instances=0"
       - "--timeout=300"
       - "--update-env-vars=PROJECT_ID=${PROJECT_ID}"
