@@ -1,6 +1,6 @@
 <div align="center">
   <h1> Sudoku Solver : Digital Image Processing and CNN</h1>
-  <img src="https://github.com/rizkyyanuark/SudokuSolver-DataCitra/blob/main/material/sudoku.png" align="center" alt="Logo" width="275" height="275">
+  <img src="material/sudoku.png" align="center" alt="Logo" width="275" height="275">
 </div>
 
 ## 📝 Overview
