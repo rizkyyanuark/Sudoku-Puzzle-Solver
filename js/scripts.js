@@ -209,44 +209,44 @@ function displayResults(data) {
   var solution = data.data.solution;
   var titles = ["Preprocess for better detection", "Result find contour", "Cut image to get grid", "Predict number", "Result Sudoku"];
 
-  if (originalImage) {
+  if (originalImage || (images && images.length > 0)) {
+    var header = document.createElement("h2");
+    header.className = "text-center mb-4";
+    header.textContent = "Solution";
+    resultsSection.appendChild(header);
+
     var row = document.createElement("div");
     row.className = "row";
 
-    var col = document.createElement("div");
-    col.className = "col-md-4 mb-4";
+    if (originalImage) {
+      var col = document.createElement("div");
+      col.className = "col-md-4 mb-4";
 
-    var card = document.createElement("div");
-    card.className = "card";
+      var card = document.createElement("div");
+      card.className = "card";
 
-    var img = document.createElement("img");
-    img.src = originalImage;
-    img.className = "card-img-top";
-    img.alt = "Original Image";
-    img.style.cursor = "pointer";
-    img.onclick = function () {
-      showModal(img);
-    };
+      var img = document.createElement("img");
+      img.src = originalImage;
+      img.className = "card-img-top";
+      img.alt = "Original Image";
+      img.style.cursor = "pointer";
+      img.onclick = function () {
+        showModal(img);
+      };
 
-    var cardBody = document.createElement("div");
-    cardBody.className = "card-body";
+      var cardBody = document.createElement("div");
+      cardBody.className = "card-body";
 
-    var cardTitle = document.createElement("h5");
-    cardTitle.className = "card-title";
-    cardTitle.textContent = "Original Image";
+      var cardTitle = document.createElement("h5");
+      cardTitle.className = "card-title";
+      cardTitle.textContent = "Original Image";
 
-    cardBody.appendChild(cardTitle);
-    card.appendChild(img);
-    card.appendChild(cardBody);
-    col.appendChild(card);
-    row.appendChild(col);
-
-    resultsSection.appendChild(row);
-  }
-
-  if (images && images.length > 0) {
-    var row = document.createElement("div");
-    row.className = "row";
+      cardBody.appendChild(cardTitle);
+      card.appendChild(img);
+      card.appendChild(cardBody);
+      col.appendChild(card);
+      row.appendChild(col);
+    }
 
     images.forEach((imagePath, index) => {
       var col = document.createElement("div");
