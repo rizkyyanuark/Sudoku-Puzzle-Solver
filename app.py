@@ -72,17 +72,20 @@ def upload_file():
 
     file = request.files["image"]
     if file and allowed_file(file.filename):
-        # Hapus gambar sebelumnya jika ada
         if 'previous_image' in session:
             delete_from_firebase(session['previous_image'])
 
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
+
+        original_image_url = upload_to_firebase(
+            open(file_path, 'rb'), filename)
+
         images, solved_sudoku = process_image(filename)
         image_urls = [upload_to_firebase(open(os.path.join(app.config['UPLOAD_FOLDER'], image), 'rb'), image)
                       for image in images]
 
-        # Simpan nama file gambar yang diunggah ke sesi
         session['previous_image'] = filename
 
         solved_sudoku_list = solved_sudoku.tolist() if solved_sudoku is not None else []
@@ -92,6 +95,7 @@ def upload_file():
                 "message": "Image processed successfully"
             },
             "data": {
+                "original_image": original_image_url,
                 "images": image_urls,
                 "solution": solved_sudoku_list
             }
@@ -112,7 +116,6 @@ def capture():
     except (IndexError, ValueError):
         return jsonify({'error': 'Invalid image data format'}), 400
 
-    # Hapus gambar sebelumnya jika ada
     if 'previous_image' in session:
         delete_from_firebase(session['previous_image'])
 
@@ -121,11 +124,12 @@ def capture():
     with open(filepath, 'wb') as f:
         f.write(image_data)
 
+    original_image_url = upload_to_firebase(open(filepath, 'rb'), filename)
+
     images, solved_sudoku = process_image_cap(filename)
     image_urls = [upload_to_firebase(open(os.path.join(app.config['UPLOAD_FOLDER'], image), 'rb'), image)
                   for image in images]
 
-    # Simpan nama file gambar yang diunggah ke sesi
     session['previous_image'] = filename
 
     solved_sudoku_list = solved_sudoku.tolist() if solved_sudoku is not None else []
@@ -135,6 +139,7 @@ def capture():
             "message": "Image processed successfully"
         },
         "data": {
+            "original_image": original_image_url,
             "images": image_urls,
             "solution": solved_sudoku_list
         }

@@ -1,4 +1,3 @@
-// filepath: /C:/Users/rizky/OneDrive/Dokumen/GitHub/SudokuSolverDariCitraDigital/js/scripts.js
 let currentStream;
 let currentFacingMode = "environment"; // Default to back camera
 
@@ -116,7 +115,7 @@ function solveSudoku() {
 
   showLoading("solve-button");
 
-  fetch("http://127.0.0.1:5000/upload", {
+  fetch("https://sudoku-solver-service-333251236087.asia-southeast2.run.app/capture", {
     method: "POST",
     body: JSON.stringify({ image: imageData }),
     headers: {
@@ -170,7 +169,7 @@ function uploadImage(event) {
   showLoading("upload-button");
 
   // Send the image to the backend
-  fetch("http://127.0.0.1:5000/upload", {
+  fetch("https://sudoku-solver-service-333251236087.asia-southeast2.run.app/upload", {
     method: "POST",
     body: formData,
   })
@@ -205,25 +204,81 @@ function displayResults(data) {
     return;
   }
 
+  var originalImage = data.data.original_image;
   var images = data.data.images;
   var solution = data.data.solution;
+  var titles = ["Preprocess for better detection", "Result find contour", "Cut image to get grid", "Predict number", "Result Sudoku"];
+
+  if (originalImage) {
+    var row = document.createElement("div");
+    row.className = "row";
+
+    var col = document.createElement("div");
+    col.className = "col-md-4 mb-4";
+
+    var card = document.createElement("div");
+    card.className = "card";
+
+    var img = document.createElement("img");
+    img.src = originalImage;
+    img.className = "card-img-top";
+    img.alt = "Original Image";
+    img.style.cursor = "pointer";
+    img.onclick = function () {
+      showModal(img);
+    };
+
+    var cardBody = document.createElement("div");
+    cardBody.className = "card-body";
+
+    var cardTitle = document.createElement("h5");
+    cardTitle.className = "card-title";
+    cardTitle.textContent = "Original Image";
+
+    cardBody.appendChild(cardTitle);
+    card.appendChild(img);
+    card.appendChild(cardBody);
+    col.appendChild(card);
+    row.appendChild(col);
+
+    resultsSection.appendChild(row);
+  }
 
   if (images && images.length > 0) {
-    var imagesContainer = document.createElement("div");
-    imagesContainer.className = "images-container";
+    var row = document.createElement("div");
+    row.className = "row";
 
-    images.forEach((imagePath) => {
+    images.forEach((imagePath, index) => {
+      var col = document.createElement("div");
+      col.className = "col-md-4 mb-4";
+
+      var card = document.createElement("div");
+      card.className = "card";
+
       var img = document.createElement("img");
       img.src = imagePath;
-      img.className = "img-thumbnail";
+      img.className = "card-img-top";
+      img.alt = titles[index];
       img.style.cursor = "pointer";
       img.onclick = function () {
         showModal(img);
       };
-      imagesContainer.appendChild(img);
+
+      var cardBody = document.createElement("div");
+      cardBody.className = "card-body";
+
+      var cardTitle = document.createElement("h5");
+      cardTitle.className = "card-title";
+      cardTitle.textContent = titles[index];
+
+      cardBody.appendChild(cardTitle);
+      card.appendChild(img);
+      card.appendChild(cardBody);
+      col.appendChild(card);
+      row.appendChild(col);
     });
 
-    resultsSection.appendChild(imagesContainer);
+    resultsSection.appendChild(row);
   }
 
   if (solution && solution.length > 0) {
