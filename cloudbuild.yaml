@@ -16,7 +16,7 @@ steps:
       - "push"
       - "asia-southeast2-docker.pkg.dev/${PROJECT_ID}/sudoku-solver/sudoku-solver-service:${SHORT_SHA}"
 
-  # Deploy to Cloud Run
+  # Deploy to Cloud Run (Optimized)
   - name: "gcr.io/cloud-builders/gcloud"
     args:
       - "run"
@@ -33,7 +33,7 @@ steps:
       - "--max-instances=2"
       - "--min-instances=0"
       - "--timeout=300"
-      - "--update-env-vars=PROJECT_ID=${PROJECT_ID}"
+      - "--update-env-vars=PROJECT_ID=${PROJECT_ID},GCP_LOGGING_LEVEL=ERROR"
       - "--service-account=333251236087-compute@developer.gserviceaccount.com"
       - "--quiet"
 
