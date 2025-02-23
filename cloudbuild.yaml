@@ -29,7 +29,7 @@ steps:
       - "--memory=4Gi"
       - "--cpu=4"
       - "--no-cpu-throttling"
-      - "--concurrency=10"
+      - "--concurrency=50"
       - "--max-instances=2"
       - "--min-instances=0"
       - "--timeout=300"
